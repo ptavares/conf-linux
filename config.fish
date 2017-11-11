@@ -14,4 +14,4 @@ source $OMF_PATH/init.fish
 
 set PATH ~/cargo/bin $PATH
 
-
+source $HOME/.config/fish/aliases.fish
