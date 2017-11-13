@@ -13,6 +13,7 @@ alias pims="cd ~/projects/ims"
 alias pmc="cd ~/projects/datamc"
 alias vi="vim -O"
 alias l="ll"
+alias tmux='tmux -2'
 
 ################################
 ###  Program ShortCut

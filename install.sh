@@ -164,6 +164,7 @@ function customizeFish {
     omf install cmorrell
     ln -s -f  ${CURRENT_DIR}/fish_prompt.fish ~/.local/share/omf/themes/cmorrell/fish_prompt.fish
     ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish
+    ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish
     # install cargo + fzf (better control+R )
     sudo apt install cargo
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
