@@ -27,7 +27,7 @@ function updateSystem {
 function installSystemTools {
     log "Installing system tools..."
     # install utilities
-    sudo apt install -y curl vim git unzip zip bzip2 fontconfig curl language-pack-en
+    sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en
     sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip
     # remove light-locker
     sudo apt-get remove -y light-locker --purge
@@ -59,28 +59,27 @@ function installKeyBase {
 function installSSHConfig {
     log "Install ssh key..."
     if [ ! -d "${HOME}/.ssh" ]; then
-        /bin/mkdir .ssh
-    else
-        read -n 1 -p "${HOME}/.ssh exist, overwrite existing files ? (y/n) " choice
-        if [ ${choice} == 'y' ]; then
-            echo ""
-            log "Overwrite existing files..."
-            if [ ! -d "${KEYBASE_PRIVATE_DIR}/.ssh" ]; then
-                log "Check keybase install or KEYBASE_PRIVATE_DIR variable"
-                log "==> ${KEYBASE_PRIVATE_DIR} not exist"
-                setReturn 1
-                return
-            else
-                log "cp -Rf ${KEYBASE_PRIVATE_DIR}/.ssh ${HOME}/.ssh"
-                return
-            fi
-
+        /bin/mkdir ${HOME}/.ssh
+    fi
+    read -n 1 -p "${HOME}/.ssh exist, overwrite existing files ? (y/n) " choice
+    if [ ${choice} == 'y' ]; then
+        echo ""
+        log "Overwrite existing files..."
+        if [ ! -d "${KEYBASE_PRIVATE_DIR}/.ssh" ]; then
+            log "Check keybase install or KEYBASE_PRIVATE_DIR variable"
+            log "==> ${KEYBASE_PRIVATE_DIR} not exist"
+            setReturn 1
+            return
+        else
+            log "cp -Rf ${KEYBASE_PRIVATE_DIR}/.ssh ${HOME}/.ssh"
+            return
         fi
 
-        echo ""
-        log "Nothing todo"
-        return
     fi
+
+    echo ""
+    log "Nothing todo"
+    return
 
 }
 
@@ -89,7 +88,7 @@ function installSSHConfig {
 #############################################
 function installTMUX {
     log "Install tmux..."
-    sudo apt install tmux
+    sudo apt install -y tmux
     cd ~
     log "Install tmux plugin..."
     git clone https://github.com/gpakosz/.tmux.git
@@ -117,14 +116,15 @@ function installDocker {
 # Install hashicorp tools
 #############################################
 function installHashicorpTools {
-    log "Install hashicorpt tool..."
+    log "Install hashicorp tools..."
     # install python-pip for last ansible version
-    sudo install python-pip
+    sudo apt install python-pip
     log "Install last ansible..."
     sudo pip install ansible
     log "Install terraform verion ${TERRAFORM_VERSION}..."
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     sudo mv terraform /usr/bin/
 }
 
@@ -162,6 +162,7 @@ function installFish {
     rm -Rf oh-my-fish
     read -n 1 -p "Set fish as default shell ? (y/n) " choice
     if [ ${choice} == 'y' ]; then
+        echo ""
         log "Set as default shell for ${USER}"
         sudo -u ${USER} chsh -s /usr/bin/fish
     fi
