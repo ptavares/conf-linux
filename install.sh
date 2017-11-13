@@ -36,7 +36,9 @@ function installSystemTools {
 }
 
 function customizeInstall {
+    log "Custom several tools..."
     ln -s -f ${HOME}/conf-linux/.vimrc ~/.vimrc
+    vim +PlugInstall +qall
 }
 
 
@@ -69,7 +71,7 @@ function installSSHConfig {
                 setReturn 1
                 return
             else
-                log "cp -Rf /keybase/private/ptavares/.ssh ${HOME}/.ssh"
+                log "cp -Rf ${KEYBASE_PRIVATE_DIR}/.ssh ${HOME}/.ssh"
                 return
             fi
 
@@ -86,8 +88,10 @@ function installSSHConfig {
 # Install TMUX
 #############################################
 function installTMUX {
+    log "Install tmux..."
     sudo apt install tmux
     cd ~
+    log "Install tmux plugin..."
     git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
     ln -s -f ${CURRENT_DIR}/.tmux.conf.local
@@ -99,13 +103,12 @@ function installTMUX {
 # Install Docker stack
 #############################################
 function installDocker {
-    # install latest Docker
+    log "Install latest docker..."
     curl -sL https://get.docker.io/ | sh
-    # install latest docker-compose
+    log "Install latest docker-compose..."
     curl -L "$(curl -s https://api.github.com/repos/docker/compose/releases | grep browser_download_url | head -n 4 | grep Linux | cut -d '"' -f 4)" > /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
-
-    # configure docker group (docker commands can be launched without sudo)
+    log "Configure docker group (docker commands can be launched without sudo)"
     usermod -aG docker ${USER}
 }
 
@@ -114,9 +117,12 @@ function installDocker {
 # Install hashicorp tools
 #############################################
 function installHashicorpTools {
+    log "Install hashicorpt tool..."
     # install python-pip for last ansible version
     sudo install python-pip
+    log "Install last ansible..."
     sudo pip install ansible
+    log "Install terraform verion ${TERRAFORM_VERSION}..."
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     sudo mv terraform /usr/bin/
@@ -127,11 +133,11 @@ function installHashicorpTools {
 # Install Atom
 #############################################
 function installAtom {
-    # Download last Atom release
+    log "Download and install last atom release..."
     wget https://atom.io/download/deb
     sudo dpkg -i deb
     rm deb
-    # install plugins
+    log "Install plugins..."
     apm install language-terraform
     apm install minimap
     apm install file-icons
@@ -146,26 +152,31 @@ function installAtom {
 # Install fishshell
 #############################################
 function installFish {
-    # install fish shell
+    log "Install fish shell..."
     sudo apt install fish
+    log "Install oh-my-fish..."
     git clone https://github.com/oh-my-fish/oh-my-fish
     cd oh-my-fish
     ./bin/install --noninteractive
     cd ${CURRENT_DIR}
     rm -Rf oh-my-fish
-      # set as default shell
-    chsh -s /usr/bin/fish
+    read -n 1 -p "Set fish as default shell ? (y/n) " choice
+    if [ ${choice} == 'y' ]; then
+        log "Set as default shell for ${USER}"
+        sudo -u ${USER} chsh -s /usr/bin/fish
+    fi
 }
 
 #############################################
 # Customize fishshell
 #############################################
 function customizeFish {
+    log "Custom fish shell.."
     omf install cmorrell
     ln -s -f  ${CURRENT_DIR}/fish_prompt.fish ~/.local/share/omf/themes/cmorrell/fish_prompt.fish
     ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish
     ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish
-    # install cargo + fzf (better control+R )
+    log "Install cargo and fzf (better control+R )..."
     sudo apt install cargo
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     /.fzf/install
@@ -217,7 +228,7 @@ case $1 in
         endInstall
         ;;
     *)
-        echo "usage ${0} [update|systemTools|customInstall|keyBase|sshConfig|tmux|docker|hashicorpTools|atom|fishShell|customFishShell|end]"
+        echo "usage ${0} [update|systemTools|customInstall|keyBase|sshConfig|tmux|docker|hashicorpTools|atom|fishShell|customFishShell|end|all]"
         exit 1
         ;;
 esac
