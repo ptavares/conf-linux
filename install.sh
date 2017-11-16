@@ -172,15 +172,20 @@ function installFish {
 # Customize fishshell
 #############################################
 function customizeFish {
-    log "Custom fish shell.."
-    omf install cmorrell
-    ln -s -f  ${CURRENT_DIR}/fish_prompt.fish ~/.local/share/omf/themes/cmorrell/fish_prompt.fish
-    ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish
-    ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish
     log "Install cargo and fzf (better control+R )..."
     sudo apt install cargo
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    /.fzf/install
+    if [ -d '~/.fzf' ]; then
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    fi
+    log "Custom fish shell.."
+    log "Copy this command line in your fish prompt"
+    echo ""
+    echo "omf install cmorrell"
+    echo "ln -s -f  ${CURRENT_DIR}/fish_prompt.fish ~/.local/share/omf/themes/cmorrell/fish_prompt.fish"
+    echo "ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish"
+    echo "ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish"
+    echo "/.fzf/install"
+    echo ""
 }
 
 #############################################
@@ -227,6 +232,21 @@ case $1 in
         ;;
     end)
         endInstall
+        ;;
+    all)
+        updateSystem
+        installSystemTools
+        customizeInstall
+        installTMUX
+        installDocker
+        installHashicorpTools
+        installAtom
+        installFish
+        customizeFish
+        installKeyBase
+        endInstall
+        log "Please configure keybase and launch command :"
+        echo "${0} installSSHConfig"
         ;;
     *)
         echo "usage ${0} [update|systemTools|customInstall|keyBase|sshConfig|tmux|docker|hashicorpTools|atom|fishShell|customFishShell|end|all]"
