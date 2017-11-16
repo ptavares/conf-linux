@@ -60,7 +60,7 @@ end
 function show_pwd -d "Show the current directory"
   #set -l pwd (prompt_pwd)
   set -l pwd (pwd)
-  prompt_segment normal blue "$pad$pwd "
+  prompt_segment normal 81A2FC "$pad$pwd "
 end
 
 # Show prompt w/ privilege cue

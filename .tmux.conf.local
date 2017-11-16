@@ -255,7 +255,6 @@ set -g mouse off
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
 set -g mode-keys vi
-unbind [
 bind Escape copy-mode
 unbind p
 bind p paste-buffer
