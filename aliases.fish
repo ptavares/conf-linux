@@ -43,8 +43,8 @@ alias gpom="git pull origin master"
 alias gcl="git clone"
 
 # Touchscreen
-alias touchscreen="~/conf-linux/touchscreen.sh"
-
+alias touchscreen="~/conf-linux/utils/touchscreen.sh"
+alias androidPhone="~/conf-linux/utils/androidPhone.sh"
 # foreman api
 alias foremanApi="~/tools/foreman/foreman_api.sh"
 
