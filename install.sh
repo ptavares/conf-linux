@@ -29,6 +29,7 @@ function installSystemTools {
     # install utilities
     sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en
     sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip
+    sudo apt install -f
     # remove light-locker
     sudo apt-get remove -y light-locker --purge
     # install Java 8
@@ -91,7 +92,9 @@ function installTMUX {
     sudo apt install -y tmux
     cd ~
     log "Install tmux plugin..."
-    git clone https://github.com/gpakosz/.tmux.git
+    if [ -d "~/.tmux" ]; then
+        git clone https://github.com/gpakosz/.tmux.git
+    fi
     ln -s -f .tmux/.tmux.conf
     ln -s -f ${CURRENT_DIR}/.tmux.conf.local
     cd ${CURRENT_DIR}
@@ -105,10 +108,11 @@ function installDocker {
     log "Install latest docker..."
     curl -sL https://get.docker.io/ | sh
     log "Install latest docker-compose..."
-    curl -L "$(curl -s https://api.github.com/repos/docker/compose/releases | grep browser_download_url | head -n 4 | grep Linux | cut -d '"' -f 4)" > /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    curl -L "$(curl -s https://api.github.com/repos/docker/compose/releases | grep browser_download_url | head -n 4 | grep Linux | cut -d '"' -f 4)" > docker-compose
+    sudo /bin/mv docker-compose /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
     log "Configure docker group (docker commands can be launched without sudo)"
-    usermod -aG docker ${USER}
+    sudo usermod -aG docker ${USER}
 }
 
 
