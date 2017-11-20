@@ -28,8 +28,7 @@ function installSystemTools {
     log "Installing system tools..."
     # install utilities
     sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en
-    sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip
-    sudo apt install -f
+    sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip jmtpfs
     # remove light-locker
     sudo apt-get remove -y light-locker --purge
     # install Java 8
@@ -193,6 +192,24 @@ function customizeFish {
 }
 
 #############################################
+# Customize fishshell
+#############################################
+function installTools {
+    log "Install tools..."
+    if [ -d '~/tools' ]; then
+        mkdir ~/tools
+    fi
+    log "Install purge kernel tools..."
+    if [ -d '~/tools/purge_old_kernel' ]; then
+        git clone https://github.com/ptavares/purge_old_kernel.git ~/tools/purge_old_kernel
+    fi
+    log "Install foreman utils..."
+    if [ -d '~/tools/foreman_utils' ]; then
+        git clone https://github.com/ptavares/foreman_utils.git ~/tools/foreman_utils
+    fi
+}
+
+#############################################
 # Clean install
 #############################################
 function endInstall {
@@ -234,6 +251,9 @@ case $1 in
     customFishShell)
         customizeFish
         ;;
+    installTools)
+        installTools
+        ;;
     end)
         endInstall
         ;;
@@ -246,6 +266,7 @@ case $1 in
         installHashicorpTools
         installAtom
         installFish
+        installTools
         customizeFish
         installKeyBase
         endInstall
@@ -253,7 +274,7 @@ case $1 in
         echo "${0} installSSHConfig"
         ;;
     *)
-        echo "usage ${0} [update|systemTools|customInstall|keyBase|sshConfig|tmux|docker|hashicorpTools|atom|fishShell|customFishShell|end|all]"
+        echo "usage ${0} [update|systemTools|customInstall|keyBase|sshConfig|tmux|docker|hashicorpTools|atom|installTools|fishShell|customFishShell|end|all]"
         exit 1
         ;;
 esac

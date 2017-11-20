@@ -46,5 +46,6 @@ alias gcl="git clone"
 alias touchscreen="~/conf-linux/utils/touchscreen.sh"
 alias androidPhone="~/conf-linux/utils/androidPhone.sh"
 # foreman api
-alias foremanApi="~/tools/foreman/foreman_api.sh"
-
+alias foremanUtils="~/tools/foreman_utils/foreman.sh"
+# purge kernel
+alias purgeKernel="sudo ~/tools/purge_old_kernel/clean_kernel.sh"
