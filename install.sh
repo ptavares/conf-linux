@@ -2,7 +2,7 @@
 DATE='date +%Y/%m/%d:%H:%M:%S'
 RETURN=0
 CURRENT_DIR=`pwd`
-TERRAFORM_VERSION=0.10.8
+TERRAFORM_VERSION=0.11.0
 KEYBASE_PRIVATE_DIR=/keybase/private/${USER}
 
 function log {
