@@ -27,7 +27,7 @@ function updateSystem {
 function installSystemTools {
     log "Installing system tools..."
     # install utilities
-    sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en
+    sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en dos2unix
     sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip jmtpfs
     # remove light-locker
     sudo apt-get remove -y light-locker --purge
@@ -92,9 +92,10 @@ function installTMUX {
     cd ~
     log "Install tmux plugin..."
     if [ -d "~/.tmux" ]; then
-        git clone https://github.com/gpakosz/.tmux.git
+        mkdir ~/.tmux
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
-    ln -s -f .tmux/.tmux.conf
+    ln -s -f ${CURRENT_DIR}/.tmux.conf
     ln -s -f ${CURRENT_DIR}/.tmux.conf.local
     cd ${CURRENT_DIR}
 }
@@ -188,6 +189,7 @@ function customizeFish {
     echo "ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish"
     echo "ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish"
     echo "/.fzf/install"
+    echo "complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'"
     echo ""
 }
 
