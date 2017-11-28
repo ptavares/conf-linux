@@ -250,6 +250,7 @@ set -g history-limit 10000
 
 # start with mouse mode enabled
 set -g mouse off
+#set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -273,14 +274,6 @@ bind-key -t vi-copy 'y' copy-selection
 
 set -g default-command /usr/bin/fish
 set -g default-shell /usr/bin/fish
-
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-cpu'
-set -g @plugin 'nhdaly/tmux-better-mouse-mode'
-
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
 
 set-option -ga terminal-overrides ",xterm-256color:Tc"
 set -g default-terminal "screen-256color"
