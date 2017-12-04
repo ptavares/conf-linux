@@ -5,7 +5,15 @@ Linux Configuration with install script to start from scratch:
  - install common tools like git, wget, curl jq, etc...
  - install java
  - install [KeyBase](https://keybase.io/) (and copy ssh configuration from private dir)
- - install Tmux
+ - install Tmux and custom config modified from [gpakosz](https://github.com/gpakosz/.tmux)
+   * Added plugins
+      * [tpm](https://github.com/tmux-plugins/tpm)
+      * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible)
+      * [tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
+      * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
+      * [tmux-net-speed](https://github.com/tmux-plugins/tmux-net-speed)
+      * [tmux-plugin-mem](https://github.com/GROG/tmux-plugin-mem)
+      * [tmux-better-mouse-mode](https://github.com/NHDaly/tmux-better-mouse-mode)
  - install Docker
  - install Hashicorp Tools : ansible, terraform
  - install Atom
