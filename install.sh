@@ -28,7 +28,7 @@ function installSystemTools {
     log "Installing system tools..."
     # install utilities
     sudo apt install -y wget curl vim git unzip zip bzip2 fontconfig curl language-pack-en dos2unix
-    sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip jmtpfs
+    sudo apt install -y network-manager network-manager-openvpn jq python-sphinx python-pip jmtpfs dar
     # remove light-locker
     sudo apt-get remove -y light-locker --purge
     # install Java 8
@@ -201,16 +201,20 @@ function customizeFish {
 #############################################
 function installTools {
     log "Install tools..."
-    if [ -d '~/tools' ]; then
+    if [ ! -d ~/tools ]; then
         mkdir ~/tools
     fi
     log "Install purge kernel tools..."
-    if [ -d '~/tools/purge_old_kernel' ]; then
+    if [ ! -d ~/tools/purge_old_kernel ]; then
         git clone https://github.com/ptavares/purge_old_kernel.git ~/tools/purge_old_kernel
     fi
     log "Install foreman utils..."
-    if [ -d '~/tools/foreman_utils' ]; then
+    if [ ! -d ~/tools/foreman_utils ]; then
         git clone https://github.com/ptavares/foreman_utils.git ~/tools/foreman_utils
+    fi
+    log "Install utils scripts..."
+    if [ ! -d ~/tools/scripts_utils ]; then
+        git clone https://github.com/ptavares/scripts_utils.git ~/tools/scripts_utils
     fi
 }
 
