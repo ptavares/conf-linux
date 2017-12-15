@@ -44,8 +44,13 @@ alias gcl="git clone"
 
 # Touchscreen
 alias touchscreen="~/conf-linux/utils/touchscreen.sh"
+# Mount/umount android phone
 alias androidPhone="~/conf-linux/utils/androidPhone.sh"
+# Make backup
+alias backupPC="~/conf-linux/utils/backupPC.sh"
 # foreman api
 alias foremanUtils="~/tools/foreman_utils/foreman.sh"
 # purge kernel
 alias purgeKernel="sudo ~/tools/purge_old_kernel/clean_kernel.sh"
+# OTP
+alias getOTP="~/tools/scripts_utils/getOTP.py"
