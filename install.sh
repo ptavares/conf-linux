@@ -33,7 +33,7 @@ function installSystemTools {
     sudo apt-get remove -y light-locker --purge
     # install Java 8
     sudo apt-get install -y default-jdk
-    # redshift - flux fork 
+    # redshift - flux fork
     #sudo add-apt-repository ppa:jonls/redshift-ppa
     #sudo apt install -y redshift redshift-gtk
 }
