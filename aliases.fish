@@ -3,6 +3,8 @@ alias ...="cd ../.."
 
 # List only directories
 alias lsd='ls -l | grep "^d"'
+# list by size directories
+alias ducks='du -cksh * | sort -hr | head -n 15'
 
 ################################
 ###  File ShortCut
