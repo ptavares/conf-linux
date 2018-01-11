@@ -2,7 +2,8 @@
 DATE='date +%Y/%m/%d:%H:%M:%S'
 RETURN=0
 CURRENT_DIR=`pwd`
-TERRAFORM_VERSION=0.11.1
+TERRAFORM_VERSION=0.11.2
+TERRAGRUNT_VERSION="v0.13.23"
 KEYBASE_PRIVATE_DIR=/keybase/private/${USER}
 
 function log {
@@ -128,11 +129,15 @@ function installHashicorpTools {
     sudo apt install python-pip
     log "Install last ansible..."
     sudo pip install ansible
-    log "Install terraform verion ${TERRAFORM_VERSION}..."
+    log "Install terraform version ${TERRAFORM_VERSION}..."
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     sudo mv terraform /usr/bin/
+    log "Install terragrunt version ${TERRAGRUNT_VERSION}..."
+    wget https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64
+    chmod +x terragrunt_linux_amd64
+    sudo mv terragrunt_linux_amd64 /usr/bin/terragrunt
 }
 
 
