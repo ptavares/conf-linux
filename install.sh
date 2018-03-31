@@ -112,7 +112,7 @@ function installDocker {
     log "Install latest docker..."
     curl -sL https://get.docker.io/ | sh
     log "Install latest docker-compose..."
-    curl -L "$(curl -s https://api.github.com/repos/docker/compose/releases | grep browser_download_url | head -n 4 | grep Linux | cut -d '"' -f 4)" > docker-compose
+    curl -L "$(curl -s https://api.github.com/repos/docker/compose/releases | grep browser_download_url | head -n 4 | grep Linux | head -n 1 | cut -d '"' -f 4)" > docker-compose
     sudo /bin/mv docker-compose /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     log "Configure docker group (docker commands can be launched without sudo)"
