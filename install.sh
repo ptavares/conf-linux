@@ -127,6 +127,7 @@ function installHashicorpTools {
     log "Install hashicorp tools..."
     # install python-pip for last ansible version
     sudo apt install python-pip
+    sudo pip install --upgrade pip
     log "Install last ansible..."
     sudo pip install ansible
     log "Install terraform version ${TERRAFORM_VERSION}..."
