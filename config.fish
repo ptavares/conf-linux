@@ -13,9 +13,6 @@ end
 source $OMF_PATH/init.fish
 
 
-# Cargo
-set PATH ~/cargo/bin $PATH
-
 # GoPath
 set PATH /usr/local/go/bin $PATH
 export GOPATH=$HOME/projects/go

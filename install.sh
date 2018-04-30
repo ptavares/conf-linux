@@ -2,8 +2,8 @@
 DATE='date +%Y/%m/%d:%H:%M:%S'
 RETURN=0
 CURRENT_DIR=`pwd`
-TERRAFORM_VERSION=0.11.5
-TERRAGRUNT_VERSION="v0.14.6"
+TERRAFORM_VERSION=0.11.7
+TERRAGRUNT_VERSION="v0.14.8"
 KEYBASE_PRIVATE_DIR=/keybase/private/${USER}
 
 function log {
@@ -75,7 +75,7 @@ function installSSHConfig {
             setReturn 1
             return
         else
-            log "cp -Rf ${KEYBASE_PRIVATE_DIR}/.ssh ${HOME}/.ssh"
+            cp -Rf ${KEYBASE_PRIVATE_DIR}/.ssh ${HOME}/.ssh
             return
         fi
 
@@ -95,10 +95,7 @@ function installTMUX {
     sudo apt install -y tmux
     cd ~
     log "Install tmux plugin..."
-    if [ -d "~/.tmux" ]; then
-        mkdir ~/.tmux
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    fi
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     ln -s -f ${CURRENT_DIR}/.tmux.conf
     ln -s -f ${CURRENT_DIR}/.tmux.conf.local
     cd ${CURRENT_DIR}
@@ -197,7 +194,8 @@ function customizeFish {
     echo "ln -s -f  ${CURRENT_DIR}/fish_prompt.fish ~/.local/share/omf/themes/cmorrell/fish_prompt.fish"
     echo "ln -s -f  ${CURRENT_DIR}/config.fish ~/.config/fish/config.fish"
     echo "ln -s -f  ${CURRENT_DIR}/tmux.fish ~/.config/fish/tmux.fish"
-    echo "/.fzf/install"
+    echo "ln -s -f  ${CURRENT_DIR}/aliases.fish ~/.config/fish/aliases.fish"
+    echo "~/.fzf/install"
     echo "complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'"
     echo ""
 }
