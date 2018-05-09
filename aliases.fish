@@ -44,6 +44,8 @@ alias gl="git lg"
 alias gpom="git pull origin master"
 alias gcl="git clone"
 
+#update system
+alias updateSystem="~/conf-linux/install.sh update; ~/conf-linux/install.sh end"
 # Touchscreen
 alias touchscreen="~/conf-linux/utils/touchscreen.sh"
 # Mount/umount android phone
