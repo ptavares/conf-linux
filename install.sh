@@ -4,6 +4,7 @@ RETURN=0
 CURRENT_DIR=`pwd`
 TERRAFORM_VERSION=0.11.7
 TERRAGRUNT_VERSION="v0.14.8"
+CCAT_VERSION=1.1.0
 KEYBASE_PRIVATE_DIR=/keybase/private/${USER}
 
 function log {
@@ -37,6 +38,12 @@ function installSystemTools {
     # redshift - flux fork
     #sudo add-apt-repository ppa:jonls/redshift-ppa
     #sudo apt install -y redshift redshift-gtk
+    wget https://github.com/jingweno/ccat/releases/download/v${CCAT_VERSION}/linux-amd64-${CCAT_VERSION}.tar.gz -O ccat.tar.gz
+    tar xzf ccat.tar.gz
+    sudo cp linux-amd64-${CCAT_VERSION}/ccat /usr/local/bin
+    sudo chmod +x /usr/local/bin/ccat
+    rm -rf linux-amd64-${CCAT_VERSION}
+    rm -rf *.gz
 }
 
 function customizeInstall {

@@ -44,6 +44,8 @@ alias gl="git lg"
 alias gpom="git pull origin master"
 alias gcl="git clone"
 
+alias cat="ccat"
+
 #update system
 alias updateSystem="~/conf-linux/install.sh update; ~/conf-linux/install.sh end"
 # Touchscreen
