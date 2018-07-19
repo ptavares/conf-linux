@@ -121,7 +121,7 @@ alias tmux='tmux -2'
 ###  Program ShortCut
 ################################
 
-
+alias gitStoreCredentials="git config credential.helper store"
 
 alias cat="ccat"
 
